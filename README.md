@@ -1,4 +1,4 @@
-# argo-app
+# argoapp
 
 A convenience library managing Giant Swarm Management Cluster Argo CD Application CRs.
 
