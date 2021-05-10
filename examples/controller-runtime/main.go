@@ -6,9 +6,10 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/giantswarm/argoapp/pkg/argoapp"
 	"k8s.io/client-go/tools/clientcmd"
 	"sigs.k8s.io/controller-runtime/pkg/client"
+
+	"github.com/giantswarm/argoapp/pkg/argoapp"
 )
 
 func main() {
