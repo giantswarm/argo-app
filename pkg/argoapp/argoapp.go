@@ -21,9 +21,6 @@ type ApplicationConfig struct {
 	// Name of the Argo CD Application CR to be created in the argocd
 	// namespace.
 	Name string
-	// DestinationNamespace is the namespace where the application's
-	// manifests are created.
-	DestinationNamespace string
 
 	// AppName as defined in the App Catalog.
 	AppName string
@@ -31,9 +28,16 @@ type ApplicationConfig struct {
 	AppVersion string
 	// AppCatalog name.
 	AppCatalog string
-	// ConfigVersion is the valid git ref of giantswarm/config repository.
-	// Usually the desired value is the major tag, e.g.: v1, v2, etc.
-	ConfigVersion string
+	// AppConfigVersion is the valid git ref of giantswarm/config
+	// repository. Usually the desired value is the major tag, e.g.: v1,
+	// v2, etc.
+	AppConfigVersion string
+	// AppDestinationNamespace is the namespace where the application's
+	// manifests are created.
+	AppDestinationNamespace string
+	// DisableForceUpgrade sets appropriate annotation to prevent helm
+	// force upgrades.
+	DisableForceUpgrade bool
 }
 
 func NewApplication(config ApplicationConfig) (*unstructured.Unstructured, error) {
@@ -50,7 +54,7 @@ func NewApplication(config ApplicationConfig) (*unstructured.Unstructured, error
 			"project": argoProjectName,
 			"source": map[string]interface{}{
 				"repoURL":        configRepoURL,
-				"targetRevision": config.ConfigVersion,
+				"targetRevision": config.AppConfigVersion,
 				"path":           ".",
 				"plugin": map[string]interface{}{
 					"name": "konfigure",
@@ -71,7 +75,7 @@ func NewApplication(config ApplicationConfig) (*unstructured.Unstructured, error
 				},
 			},
 			"destination": map[string]interface{}{
-				"namespace": config.DestinationNamespace,
+				"namespace": config.AppDestinationNamespace,
 				"server":    "https://kubernetes.default.svc",
 			},
 			"syncPolicy": map[string]interface{}{

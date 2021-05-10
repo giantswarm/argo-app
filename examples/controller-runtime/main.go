@@ -34,13 +34,14 @@ func main() {
 	}
 
 	obj, err := argoapp.NewApplication(argoapp.ApplicationConfig{
-		Name:                 "my-argo-app",
-		DestinationNamespace: "my-namespace",
+		Name: "my-argo-app",
 
-		AppName:       "dex",
-		AppVersion:    "v1.2.3",
-		AppCatalog:    "control-plane-catalog",
-		ConfigVersion: "v1",
+		AppName:                 "dex",
+		AppVersion:              "v1.2.3",
+		AppCatalog:              "control-plane-catalog",
+		AppConfigVersion:        "v1",
+		AppDestinationNamespace: "my-namespace",
+		DisableForceUpgrade:     false,
 	})
 	if err != nil {
 		panic(err)
