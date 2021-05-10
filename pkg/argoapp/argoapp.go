@@ -35,6 +35,7 @@ type ApplicationConfig struct {
 	// AppDestinationNamespace is the namespace where the application's
 	// manifests are created.
 	AppDestinationNamespace string
+
 	// DisableForceUpgrade sets appropriate annotation to prevent helm
 	// force upgrades.
 	DisableForceUpgrade bool

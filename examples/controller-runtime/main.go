@@ -41,7 +41,8 @@ func main() {
 		AppCatalog:              "control-plane-catalog",
 		AppConfigVersion:        "v1",
 		AppDestinationNamespace: "my-namespace",
-		DisableForceUpgrade:     false,
+
+		DisableForceUpgrade: false,
 	})
 	if err != nil {
 		panic(err)
