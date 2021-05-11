@@ -1,6 +1,7 @@
 package argoapp
 
 import (
+	"github.com/giantswarm/microerror"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 
@@ -42,6 +43,22 @@ type ApplicationConfig struct {
 }
 
 func NewApplication(config ApplicationConfig) (*unstructured.Unstructured, error) {
+	if config.Name == "" {
+		return nil, microerror.Maskf(invalidConfigError, "%T.Name must not be empty", config)
+	}
+	if config.AppVersion == "" {
+		return nil, microerror.Maskf(invalidConfigError, "%T.AppVersion must not be empty", config)
+	}
+	if config.AppCatalog == "" {
+		return nil, microerror.Maskf(invalidConfigError, "%T.AppCatalog must not be empty", config)
+	}
+	if config.AppConfigVersion == "" {
+		return nil, microerror.Maskf(invalidConfigError, "%T.AppConfigVersion must not be empty", config)
+	}
+	if config.AppDestinationNamespace == "" {
+		return nil, microerror.Maskf(invalidConfigError, "%T.AppDestinationNamespace must not be empty", config)
+	}
+
 	// See the argo-cd source for detailed object structure:
 	// https://github.com/argoproj/argo-cd/blob/master/pkg/apis/application/v1alpha1/types.go
 	obj := map[string]interface{}{
