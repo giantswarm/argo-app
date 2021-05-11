@@ -46,6 +46,9 @@ func NewApplication(config ApplicationConfig) (*unstructured.Unstructured, error
 	if config.Name == "" {
 		return nil, microerror.Maskf(invalidConfigError, "%T.Name must not be empty", config)
 	}
+	if config.AppName == "" {
+		return nil, microerror.Maskf(invalidConfigError, "%T.AppName must not be empty", config)
+	}
 	if config.AppVersion == "" {
 		return nil, microerror.Maskf(invalidConfigError, "%T.AppVersion must not be empty", config)
 	}
