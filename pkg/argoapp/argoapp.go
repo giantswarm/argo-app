@@ -59,7 +59,7 @@ func NewApplication(config ApplicationConfig) (*unstructured.Unstructured, error
 		return nil, microerror.Maskf(invalidConfigError, "%T.AppDestinationNamespace must not be empty", config)
 	}
 	if config.ConfigRef == "" {
-		return nil, microerror.Maskf(invalidConfigError, "%T.AppConfigVersion must not be empty", config)
+		return nil, microerror.Maskf(invalidConfigError, "%T.ConfigRef must not be empty", config)
 	}
 
 	// See the argo-cd source for detailed object structure:
