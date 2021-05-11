@@ -37,11 +37,11 @@ func main() {
 		Name: "my-argo-app",
 
 		AppName:                 "dex",
-		AppVersion:              "v1.2.3",
+		AppVersion:              "1.2.3",
 		AppCatalog:              "control-plane-catalog",
-		AppConfigVersion:        "v1",
 		AppDestinationNamespace: "my-namespace",
 
+		ConfigRef:           "v1",
 		DisableForceUpgrade: false,
 	})
 	if err != nil {
