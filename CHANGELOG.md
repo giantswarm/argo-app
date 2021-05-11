@@ -7,4 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-[Unreleased]: https://github.com/giantswarm/argoapp/tree/main
+## [0.1.0] - 2021-05-11
+
+[Unreleased]: https://github.com/giantswarm/argoapp/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/giantswarm/argoapp/releases/tag/v0.1.0
