@@ -29,14 +29,14 @@ type ApplicationConfig struct {
 	AppVersion string
 	// AppCatalog name.
 	AppCatalog string
-	// AppConfigVersion is the valid git ref of giantswarm/config
-	// repository. Usually the desired value is the major tag, e.g.: v1,
-	// v2, etc.
-	AppConfigVersion string
 	// AppDestinationNamespace is the namespace where the application's
 	// manifests are created.
 	AppDestinationNamespace string
 
+	// ConfigRef is the valid git ref of giantswarm/config repository used
+	// to configure the application. Usually the desired value is the major
+	// tag, e.g.: v1, v2, etc.
+	ConfigRef string
 	// DisableForceUpgrade sets appropriate annotation to prevent helm
 	// force upgrades.
 	DisableForceUpgrade bool
@@ -52,11 +52,11 @@ func NewApplication(config ApplicationConfig) (*unstructured.Unstructured, error
 	if config.AppCatalog == "" {
 		return nil, microerror.Maskf(invalidConfigError, "%T.AppCatalog must not be empty", config)
 	}
-	if config.AppConfigVersion == "" {
-		return nil, microerror.Maskf(invalidConfigError, "%T.AppConfigVersion must not be empty", config)
-	}
 	if config.AppDestinationNamespace == "" {
 		return nil, microerror.Maskf(invalidConfigError, "%T.AppDestinationNamespace must not be empty", config)
+	}
+	if config.ConfigRef == "" {
+		return nil, microerror.Maskf(invalidConfigError, "%T.AppConfigVersion must not be empty", config)
 	}
 
 	// See the argo-cd source for detailed object structure:
@@ -72,7 +72,7 @@ func NewApplication(config ApplicationConfig) (*unstructured.Unstructured, error
 			"project": argoProjectName,
 			"source": map[string]interface{}{
 				"repoURL":        configRepoURL,
-				"targetRevision": config.AppConfigVersion,
+				"targetRevision": config.ConfigRef,
 				"path":           ".",
 				"plugin": map[string]interface{}{
 					"name": "konfigure",
