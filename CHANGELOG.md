@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix generated Application CR project (renamed from "draughtsman2" to "collections").
+
 ## [0.1.0] - 2021-05-11
 
 [Unreleased]: https://github.com/giantswarm/argoapp/compare/v0.1.0...HEAD

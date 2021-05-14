@@ -13,7 +13,7 @@ const (
 	argoAPIVersion      = "argoproj.io/v1alpha1"
 	argoApplicationKind = "Application"
 
-	argoProjectName = "draughtsman2"
+	argoProjectName = "collections"
 
 	configRepoURL = "https://github.com/giantswarm/config.git"
 )
