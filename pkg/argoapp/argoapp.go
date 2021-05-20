@@ -101,7 +101,9 @@ func NewApplication(config ApplicationConfig) (*unstructured.Unstructured, error
 			},
 			"syncPolicy": map[string]interface{}{
 				"automated": map[string]interface{}{
-					"prune": true,
+					"prune":      true,
+					"allowEmpty": true,
+					"selfHeal":   true,
 				},
 			},
 		},
