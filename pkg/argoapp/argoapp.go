@@ -101,8 +101,8 @@ func NewApplication(config ApplicationConfig) (*unstructured.Unstructured, error
 			},
 			"syncPolicy": map[string]interface{}{
 				"automated": map[string]interface{}{
-					"prune":      true,
-					# If set to true allows deleting all application resources during automatic syncing ( false by default ).
+					"prune": true,
+					// If set to true allows deleting all application resources during automatic syncing (false by default).
 					"allowEmpty": false,
 					"selfHeal":   true,
 				},
