@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Set `allowEmpty: false` in the generated Application CR sync policy.
+
 ## [0.1.2] - 2021-05-20
 
 ### Added
