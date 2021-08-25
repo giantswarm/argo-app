@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add `resources-finalizer.argocd.argoproj.io` finalizer to enable cascading deletion.
+
 ## [0.1.3] - 2021-08-24
 
 ### Changed
