@@ -15,6 +15,8 @@ const (
 
 	argoProjectName = "collections"
 
+	argoResourceFinalizer = "resources-finalizer.argocd.argoproj.io"
+
 	configRepoURL = "https://github.com/giantswarm/config.git"
 )
 
@@ -70,6 +72,9 @@ func NewApplication(config ApplicationConfig) (*unstructured.Unstructured, error
 		"metadata": map[string]interface{}{
 			"name":      config.Name,
 			"namespace": argoNamespace,
+			"finalizers": []string{
+				argoResourceFinalizer,
+			},
 		},
 		"spec": map[string]interface{}{
 			"project": argoProjectName,
