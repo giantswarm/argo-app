@@ -3,6 +3,9 @@ package argoapp
 import (
 	"github.com/giantswarm/microerror"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
+	"sigs.k8s.io/yaml"
+
+	"github.com/giantswarm/argoapp/pkg/apis/application/v1alpha1"
 )
 
 // Unstructured example
@@ -44,7 +47,7 @@ type ApplicationConfig struct {
 	DisableForceUpgrade bool
 }
 
-func NewApplication(config ApplicationConfig) (*unstructured.Unstructured, error) {
+func NewUnstructuredApplication(config ApplicationConfig) (*unstructured.Unstructured, error) {
 	if config.Name == "" {
 		return nil, microerror.Maskf(invalidConfigError, "%T.Name must not be empty", config)
 	}
@@ -116,4 +119,31 @@ func NewApplication(config ApplicationConfig) (*unstructured.Unstructured, error
 	}
 
 	return &unstructured.Unstructured{Object: obj}, nil
+}
+
+func NewApplication(config ApplicationConfig) (*v1alpha1.Application, error) {
+	obj, err := NewUnstructuredApplication(config)
+	if err != nil {
+		return nil, microerror.Mask(err)
+	}
+	app, err := UnstructuredToArgoApplication(obj)
+	if err != nil {
+		return nil, microerror.Mask(err)
+	}
+	return app, nil
+}
+
+func UnstructuredToArgoApplication(u *unstructured.Unstructured) (*v1alpha1.Application, error) {
+	app := &v1alpha1.Application{}
+
+	b, err := u.MarshalJSON()
+	if err != nil {
+		return nil, microerror.Mask(err)
+	}
+	err = yaml.Unmarshal(b, app)
+	if err != nil {
+		return nil, microerror.Mask(err)
+	}
+
+	return app, nil
 }
